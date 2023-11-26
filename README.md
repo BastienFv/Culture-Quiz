@@ -4,10 +4,6 @@
 
 Pour cet exercice, tu dois rendre fonctionnelle une page de quiz. Pour cela, tu dervas écrire un script JS (Javascript) en complétant le fichier script.js du projet.
 
-**Attention** : Ecris bien **tout ton code** dans le fichier **script.js** et **en dessous** de la ligne "NE PAS MODIFIER AU DESSUS DE CETTE LIGNE". **Ne modifie aucun autre fichier**, y compris le dossier "tests" qui contient les tests automatiques qui nous permettront de vérifier le fonctionnement de ton code.
-
-En revanche, n'hésite pas à consulter le fichier index.html pour repérer les élements dont tu pourrais avoir besoin.
-
 ### Les questions
 
 Les questions sont déjà présents dans le fichier script.js sous forme d'un tableau d'objets contenant la question, les réponses et l'index de la réponse juste. C'est ce tableau qu'il faudra utiliser pour réaliser l'exercice.
@@ -25,10 +21,6 @@ Lorsque l'utilisateur aura sélectionné une réponse, le texte de la question s
 ### Afficher les réponses
 
 Les réponses correspondant à la question devront s'afficher sous la forme d'élément `<li class="answer"></li>` à l'intérieur de l'élément `<ul id="answers"></ul>` déjà présent dans le fichier index.html. Ils devront **impérativement avoir la classe "answer"**.
-
-La première question et ses réponses devraient ressembler à ceci.
-
-![Maquette ordinateur portable](./images/question-et-reponses.png)
 
 ### Valider une réponse
 

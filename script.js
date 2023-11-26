@@ -32,67 +32,68 @@ const questions = [
 
 document.addEventListener("DOMContentLoaded", () => {
   // Récupération des éléments du DOM
-    const questionElement = document.getElementById("question");
-    const answersElement = document.getElementById("answers");
-    const scoreElement = document.getElementById("score");
+  const questionElement = document.getElementById("question");
+  const answersElement = document.getElementById("answers");
+  const scoreElement = document.getElementById("score");
 
-    // Initialisation des variables
-    let currentQuestionIndex = 0;
-    let score = 0;
+  // Initialisation des variables
+  let currentQuestionIndex = 0;
+  let score = 0;
 
-    // Fonction pour afficher un élément
-    function displayElement(element, content) {
-      element.textContent = content;
+  // Fonction pour afficher un élément
+  function displayElement(element, content) {
+    element.textContent = content;
+  }
+
+  // Fonction pour créer et ajouter un élément li à la liste des réponses
+  function createAnswerElement(answer, index, question) {
+    const li = document.createElement("li");
+    li.classList.add("answer");
+    li.textContent = answer;
+
+    li.addEventListener("click", () => handleAnswerClick(index, question));
+
+    return li;
+  }
+
+  // Fonction pour gérer le clic sur une réponse
+  function handleAnswerClick(index, question) {
+    if (index === question.correctAnswerIndex) {
+      score++;
+      displayElement(scoreElement, score);
     }
 
-    // Fonction pour créer et ajouter un élément li à la liste des réponses
-    function createAnswerElement(answer, index, question) {
-      const li = document.createElement("li");
-      li.classList.add("answer");
-      li.textContent = answer;
+    currentQuestionIndex++;
 
-      li.addEventListener("click", () => handleAnswerClick(index, question));
-
-      return li;
+    if (currentQuestionIndex < questions.length) {
+      showNextQuestion();
+    } else {
+      showEndMessage();
     }
+  }
 
-    // Fonction pour gérer le clic sur une réponse
-    function handleAnswerClick(index, question) {
-      if (index === question.correctAnswerIndex) {
-        score++;
-        displayElement(scoreElement, score);
-      }
+  // Fonction pour afficher le message de fin
+  function showEndMessage() {
+    displayElement(
+      questionElement,
+      `Il n'y a plus de questions, merci d'avoir participé. Vous avez obtenu ${score} points sur ${questions.length} !`
+    );
+    answersElement.innerHTML = "";
+  }
 
-      currentQuestionIndex++;
+  // Fonction pour afficher la question suivante
+  function showNextQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    displayElement(questionElement, currentQuestion.question);
 
-      if (currentQuestionIndex < questions.length) {
-        showNextQuestion();
-      } else {
-        showEndMessage();
-      }
-    }
+    answersElement.innerHTML = "";
+    currentQuestion.answers.forEach((answer, index) => {
+      const li = createAnswerElement(answer, index, currentQuestion);
+      answersElement.appendChild(li);
+    });
+  }
 
-    // Fonction pour afficher le message de fin
-    function showEndMessage() {
-      displayElement(
-        questionElement,
-        `Il n'y a plus de questions, merci d'avoir participé. Vous avez obtenu ${score} points sur ${questions.length} !`
-      );
-      answersElement.innerHTML = "";
-    }
-
-    // Fonction pour afficher la question suivante
-    function showNextQuestion() {
-      const currentQuestion = questions[currentQuestionIndex];
-      displayElement(questionElement, currentQuestion.question);
-
-      answersElement.innerHTML = "";
-      currentQuestion.answers.forEach((answer, index) => {
-        const li = createAnswerElement(answer, index, currentQuestion);
-        answersElement.appendChild(li);
-      });
-    }
-
-    // Affichage de la première question
-    showNextQuestion();
+  // Affichage de la première question
+  showNextQuestion();
+  
 });
